@@ -1,0 +1,63 @@
+# Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual Environment
+venv/
+ENV/
+env/
+*.venv/
+
+# Django-specific files
+*.sqlite3
+/db.sqlite3
+/media/
+/staticfiles/
+/static/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
+*.env
+
+# Migrations (optional, if you don’t want to track them)
+**/migrations/*
+!**/migrations/__init__.py
+
+# Pytest and Coverage
+.coverage
+htmlcov/
+*.cover
+*.py,cover
+
+# Docker
+*.dockerignore
+
+# Heroku
+*.procfile
+
+# AWS and Deployment
+*.pem
+.terraform/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Pipenv
+Pipfile.lock
+
+# Celery beat schedule file
+celerybeat-schedule
