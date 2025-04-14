@@ -56,7 +56,7 @@ class TransformerModel():
             "brand_perception": self.assess_brand_perception(text, brand_name)
         }
 
-class ANNModel():
+class LstmModel():
     pass
     
     
