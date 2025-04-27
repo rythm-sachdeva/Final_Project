@@ -1,22 +1,33 @@
-from transformers import pipeline, AutoModelForSequenceClassification,AutoTokenizer
+from transformers import pipeline, TFAutoModelForSequenceClassification, AutoTokenizer
 from typing import Dict
-
-#Ml Models 
+import tensorflow as tf
 
 class TransformerModel():
     def __init__(self):
-        #emotion detection model
-        self.emotion_model = pipeline('text-classification',model='SamLowe/roberta-base-go_emotions',return_all_scores=True)
-        self.sarcasm_tokenizer = AutoTokenizer.from_pretrained("sismetanin/roberta-base-sarcasm-twitter")
-        self.sarcasm_model = AutoModelForSequenceClassification.from_pretrained("sismetanin/roberta-base-sarcasm-twitter")
+        self.emotion_model = pipeline(
+            'text-classification',
+            model='SamLowe/roberta-base-go_emotions',
+            return_all_scores=True,
+            framework="tf"  
+        )
+        
+        self.sarcasm_tokenizer = AutoTokenizer.from_pretrained("MohamedGalal/marbert-sarcasm-detector")
+        self.sarcasm_model = TFAutoModelForSequenceClassification.from_pretrained(
+            "MohamedGalal/marbert-sarcasm-detector"
+        )
 
+        # Sentiment analysis model (TensorFlow)
         self.sentiment_model = pipeline(
             "sentiment-analysis",
-            model="cardiffnlp/twitter-roberta-base-sentiment-latest"
+            model="cardiffnlp/twitter-roberta-base-sentiment-latest",
+            framework="tf"
         )
+
+        # Brand perception model (TensorFlow)
         self.perception_model = pipeline(
             "zero-shot-classification",
-            model="facebook/bart-large-mnli"
+            model="facebook/bart-large-mnli",
+            framework="tf"
         )
 
     def detect_emotions(self, text: str) -> Dict:
@@ -24,12 +35,14 @@ class TransformerModel():
         return {item['label']: item['score'] for item in results}
     
     def detect_sarcasm(self, text: str) -> Dict:
-        inputs = self.sarcasm_tokenizer(text, return_tensors="pt", truncation=True)
+        inputs = self.sarcasm_tokenizer(text, return_tensors="tf", truncation=True)
         outputs = self.sarcasm_model(**inputs)
-        probs = outputs.logits.softmax(dim=1)
-        return {'sarcastic': probs[0][1].item(), 'literal': probs[0][0].item()}
+        probs = tf.nn.softmax(outputs.logits, axis=1)
+        return {
+            'sarcastic': float(probs[0][1]),
+            'literal': float(probs[0][0])
+        }
     
-
     def analyze_sentiment(self, text: str) -> Dict:
         result = self.sentiment_model(text)[0]
         return {'label': result['label'], 'score': result['score']}
@@ -55,9 +68,3 @@ class TransformerModel():
             "sentiment": self.analyze_sentiment(text),
             "brand_perception": self.assess_brand_perception(text, brand_name)
         }
-
-class LstmModel():
-    pass
-    
-    
-
