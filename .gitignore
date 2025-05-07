@@ -1,8 +1,9 @@
+# ──────────────────────────────────────────────
 # Django
 *.log
 *.pot
 *.pyc
-*.pyo
+*.pyo  
 *.pyd
 __pycache__/
 
@@ -19,45 +20,102 @@ env/
 /staticfiles/
 /static/
 
+# ──────────────────────────────────────────────
+# Node.js
+
+# Dependency directories
+node_modules/
+
+# Optional npm/yarn/pnpm caches and logs
+.npm/
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime files
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Test coverage
+coverage/
+.nyc_output/
+*.lcov
+*.cover
+*.py,cover
+
+# Build output
+dist/
+build/
+.out/
+.next/
+.nuxt/
+.storybook-static/
+
+# Caches
+.cache/
+.parcel-cache/
+.vite/
+*.tsbuildinfo
+.eslintcache
+
+# Static files
+public/
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv
+.env
+*.env
+.env.*
+
+# ──────────────────────────────────────────────
 # IDE and Editor files
 .vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
 
+# ──────────────────────────────────────────────
 # OS files
 .DS_Store
 Thumbs.db
+.AppleDouble
+.LSOverride
 
-# Environment Variables
-.env
-*.env
-
+# ──────────────────────────────────────────────
 # Migrations (optional, if you don’t want to track them)
 **/migrations/*
 !**/migrations/__init__.py
 
-# Pytest and Coverage
-.coverage
-htmlcov/
-*.cover
-*.py,cover
-
+# ──────────────────────────────────────────────
 # Docker
 *.dockerignore
 
+# ──────────────────────────────────────────────
 # Heroku
 *.procfile
 
+# ──────────────────────────────────────────────
 # AWS and Deployment
 *.pem
+*.key
+*.crt
 .terraform/
 
+# ──────────────────────────────────────────────
 # Jupyter Notebooks
 .ipynb_checkpoints/
 
+# ──────────────────────────────────────────────
 # Pipenv
 Pipfile.lock
 
+# ──────────────────────────────────────────────
 # Celery beat schedule file
 celerybeat-schedule
